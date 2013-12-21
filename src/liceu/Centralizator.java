@@ -5,6 +5,8 @@ import java.util.TreeSet;
 
 public class Centralizator {
 	
+	private static Centralizator instance = null;
+	
 	private TreeSet<Elev> elevi;
 	private TreeSet<Profesor> profesori;
 	// TODO : restul de liste
@@ -13,5 +15,12 @@ public class Centralizator {
 	
 	// TODO : CONSTRUCTOR
 	// TODO : toString
+	
+	public static Centralizator getInstance() {
+	      if(instance == null) {
+	         instance = new Centralizator();
+	      }
+	      return instance;
+	}
 
 }
