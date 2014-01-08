@@ -7,4 +7,11 @@ public class Secretar extends Utilizator implements ISecretar {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Secretar [getTipUtilizator()=" + getTipUtilizator()
+				+ ", getUUID()=" + getUUID() + ", getNumeUtilizator()="
+				+ getNumeUtilizator() + ", getLoginID()=" + getLoginID() + "]\n";
+	}
+	
 }

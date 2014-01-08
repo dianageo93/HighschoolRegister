@@ -1,6 +1,13 @@
 package gui;
 
+import gui.utils.UserFrame;
+import gui.utils.UserFrameEquiped;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.DefaultMetalTheme;
@@ -9,7 +16,7 @@ import javax.swing.plaf.metal.OceanTheme;
 
 public class Run {
 	
-	private final static String LOOKANDFEEL = "GTK";
+	private final static String LOOKANDFEEL = "Metal";
 	private final static String THEME = "Ocean";
 	private static void initLookAndFeel() {
 	        String lookAndFeel = null;
@@ -62,7 +69,34 @@ public class Run {
 	                e.printStackTrace();
 	            }
 	        }
-	 }
+	}
+	
+//	private UserFrame elevWindow = new ElevFrame();
+	private LoginFrame myLoginFrame = new LoginFrame();
+	
+//	private Thread timerThread = new Thread(new Runnable() {
+//		
+//		@Override
+//		public void run() {
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//			JPanel bottomPanel = elevWindow.getBottomPanel();
+//			JPanel rightPanel = elevWindow.getRightPanel();
+//			rightPanel.remove(bottomPanel);
+//			
+//			bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+//			bottomPanel.setBackground(Color.DARK_GRAY);
+//			bottomPanel.setPreferredSize(elevWindow.getDateDim());
+//			elevWindow.setBottomPanel(bottomPanel);
+//			((UserFrameEquiped) elevWindow).setDateAndTime();
+//			rightPanel.add(bottomPanel);
+//		}
+//	});
 	 
 	 private static void createAndShowGUI() {
 	        //Set the look and feel.
@@ -70,8 +104,9 @@ public class Run {
 	        JFrame.setDefaultLookAndFeelDecorated(true);
 
 	        //Create and set up the window.
-	        LoginFrame loginWindow = new LoginFrame();
+	        
 	        Run app = new Run();
+//	        timerThread.start();
 	    }
 
 	    public static void main(String[] args) {
@@ -81,6 +116,7 @@ public class Run {
 	                createAndShowGUI();
 	            }
 	        });
+	        
 	    }
 	    
 	}

@@ -11,7 +11,7 @@ public class UtilizatorFactory {
 		switch(tip) {
 		
 		case ELEV:
-			u = new Elev("2930930134172");
+			u = new Elev();
 		break;
 		
 		case PROFESOR:

@@ -2,17 +2,60 @@ package liceu;
 
 import liceu.utils.NumePrenume;
 
-public class Utilizator {
+public abstract class Utilizator {
 	
-	private String numeUtilizator;
+	private String loginID;
 	private String parolaUtilizator;
-	private NumePrenume nume;
-	private int ID;
+	private NumePrenume numeUtilizator;
+	private String UUID;
+	private TipUtilizator tipUtilizator = null;
 	
-	// TODO : CONSTRUCTOR
+	public Utilizator(TipUtilizator tip) {
+		this.tipUtilizator = tip;
+	}
+	
+	public TipUtilizator getTipUtilizator() {
+		return tipUtilizator;
+	}
+	
+	public void setTipUtilizator(TipUtilizator tipUtilizator) {
+		this.tipUtilizator = tipUtilizator;
+	}
 	
 	public String toString() {
-		return null;
+		return numeUtilizator.toString();
+	}
+	
+	public void setUUID(String tokens) {
+		UUID = tokens;
+	}
+	
+	public String getUUID() {
+		return UUID;
+	}
+	
+	public void setNume(NumePrenume nume) {
+		this.numeUtilizator = nume;
+	}
+	
+	public NumePrenume getNumeUtilizator() {
+		return numeUtilizator;
+	}
+	
+	public void setParolaUtilizator(String parolaUtilizator) {
+		this.parolaUtilizator = parolaUtilizator;
+	}
+	
+	public String getParolaUtilizator() {
+		return parolaUtilizator;
+	}
+	
+	public void setLoginID(String loginID) {
+		this.loginID = loginID;
+	}
+	
+	public String getLoginID() {
+		return loginID;
 	}
 
 }

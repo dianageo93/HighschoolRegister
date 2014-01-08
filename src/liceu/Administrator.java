@@ -19,4 +19,12 @@ public class Administrator extends Utilizator implements IProfesor, ISecretar {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Administrator [getTipUtilizator()=" + getTipUtilizator()
+				+ ", getUUID()=" + getUUID() + ", getNumeUtilizator()="
+				+ getNumeUtilizator() + ", getLoginID()=" + getLoginID() + "]\n";
+	}
+	
+
 }
