@@ -4,9 +4,24 @@ import java.util.TreeMap;
 
 public class Catalog {
 	
-	private TreeMap<Elev, TreeMap<Materie, SituatieMaterieBaza>> myMap = new TreeMap<>();
+	private TreeMap<Elev, TreeMap<Materie, SituatieMaterieBaza>> myMap;
 	
-	// TODO : CONSTRUCTOR
-	// TODO : toString
+	public Catalog() {
+		myMap = new TreeMap<>();
+	}
 
+	@Override
+	public String toString() {
+		return "Catalog [myMap=" + myMap + "]";
+	}
+
+	public TreeMap<Elev, TreeMap<Materie, SituatieMaterieBaza>> getMyMap() {
+		return myMap;
+	}
+
+	public void setMyMap(
+			TreeMap<Elev, TreeMap<Materie, SituatieMaterieBaza>> myMap) {
+		this.myMap = myMap;
+	}
+	
 }

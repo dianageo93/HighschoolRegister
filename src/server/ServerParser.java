@@ -4,18 +4,26 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 import liceu.Administrator;
+import liceu.Catalog;
 import liceu.Centralizator;
 import liceu.Clasa;
 import liceu.Elev;
 import liceu.Materie;
 import liceu.Profesor;
 import liceu.Secretar;
+import liceu.SituatieMaterieBaza;
+import liceu.SituatieMaterieBaza.Absenta;
+import liceu.SituatieMaterieBaza.Absenta.Status;
+import liceu.SituatieMaterieCuTeza;
+import liceu.utils.Nota;
 import liceu.utils.NumePrenume;
 
 public class ServerParser {
@@ -23,6 +31,150 @@ public class ServerParser {
 	private int BEGIN_PASSWD = 8;
 	private int END_PASSWD = BEGIN_PASSWD + 6;
 	private int BEGIN_CLASA = END_PASSWD;
+	
+	private Catalog setupCatalogForClasa(String clasa, String pathToServer) {
+		Catalog myCatalog = new Catalog();
+		String myPathToServer = pathToServer + "/" + clasa;
+		String myPathToServer2 = myPathToServer + "_abs";
+		try(BufferedReader br = new BufferedReader(new FileReader(myPathToServer))) {
+			BufferedReader br2 = new BufferedReader(new FileReader(myPathToServer2));
+			for(String line; (line = br.readLine()) != null; ) {
+				String line2 = br2.readLine();
+				// a map for absente
+				TreeMap<Materie, LinkedList<Absenta>> absenteMap = new TreeMap<>();
+				// parse the dates in #clasa_abs
+				String[] tokens = line2.split(",");
+				for(int j = 1; j < tokens.length; j++) {
+					String[] tokens2 = tokens[j].split(";");
+					
+					//create the key
+					Materie keyMaterie = new Materie(tokens2[0]);
+					
+					// create the value
+					LinkedList<Absenta> absente = new LinkedList<>();
+					for(int k = 1; k < tokens2.length; k++) {
+						String[] tokens3 = tokens2[k].split("\\?");
+						String day = tokens3[0];
+						String month = tokens3[1];
+						String year = tokens3[2].substring(0, 4);
+						String status = tokens3[2].substring(5);
+						Absenta abs = new Absenta();
+						Calendar date = new GregorianCalendar(Integer.parseInt(year), Integer.parseInt(month), 
+								Integer.parseInt(day));
+						abs.setDate(date);
+						if(status.equals("M")) {
+							abs.setStatus(Status.MOTIVATA);
+						}
+						else if(status.equals("NM")) {
+							abs.setStatus(Status.NEMOTIVATA);
+						}
+						else {
+							status.equals(Status.NEDETERMINAT);
+						}
+						absente.add(abs);
+					}
+					absenteMap.put(keyMaterie, absente);
+				}
+				
+				tokens = line.split(",");
+				
+				// create the key
+				Elev key = Centralizator.getInstance().getElevi().get(tokens[0]);
+				
+				// create the value :
+				TreeMap<Materie, SituatieMaterieBaza> value = new TreeMap<>();
+				for(int j = 1; j < tokens.length; j++) {
+					// create key for myValue.entry
+					Materie m;
+					LinkedList<Nota> noteSem1 = new LinkedList<>();
+					LinkedList<Nota> noteSem2 = new LinkedList<>();
+					String tezaNotaSem1 = "0.0";
+					String tezaNotaSem2 = "0.0";
+					boolean teza = false;
+					
+					String[] tokens2 = tokens[j].split(";");
+					m = new Materie(tokens2[0]);
+					boolean sem2 = false; // will switch the semester
+					
+					// create value for myValue.entry
+					// loop through all the grades
+					for(int k = 1; k < tokens2.length; k++) {
+						// switch semester if necessary
+						if(tokens2[k].contains("|") && tokens2[k].contains("-")) {
+							teza = true;
+							String[] tokens3 = tokens2[k].split("-");
+							sem2 = true;
+							int length = tokens3[1].length();
+							tezaNotaSem1 = tokens3[1].substring(0, length - 1);
+							// retain last grade
+							tokens2[k] = tokens3[0];
+							noteSem1.add(new Nota(tokens2[k]));
+						}
+						else if(tokens2[k].contains("|")) {
+							sem2 = true;
+							int length = tokens2[k].length();
+							tokens2[k] = tokens2[k].substring(0, length - 1);
+							noteSem1.add(new Nota(tokens2[k]));
+						}
+						else if(tokens2[k].contains("-")) {
+							teza = true;
+							String[] tokens3 = tokens2[k].split("-");
+							// retain tezaNota
+							if(sem2 == false) {
+								tezaNotaSem1 = tokens3[1];
+							}
+							else {
+								tezaNotaSem2 = tokens3[1];
+							}
+							// retain last grade
+							tokens2[k] = tokens3[0];
+							noteSem2.add(new Nota(tokens2[k]));
+						}
+						else {
+							if(sem2 == false) { // a grade for semester 1
+								noteSem1.add(new Nota(tokens2[k]));
+							}
+							else {
+								noteSem2.add(new Nota(tokens2[k]));
+							}
+						}
+						m.setTeza(teza);
+					}
+					if(teza == true) {
+						SituatieMaterieCuTeza sit = new SituatieMaterieCuTeza(m);
+						sit.setTezaSem1(new Nota(tezaNotaSem1));
+						sit.setTezaSem2(new Nota(tezaNotaSem2));
+						sit.setNoteSem1(noteSem1);
+						sit.setNoteSem2(noteSem2);
+						sit.setAbsente(absenteMap.get(m));
+						value.put(m, sit);
+					}
+					else {
+						SituatieMaterieBaza sit = new SituatieMaterieBaza(m);
+						sit.setNoteSem1(noteSem1);
+						sit.setNoteSem2(noteSem2);
+						sit.setAbsente(absenteMap.get(m));
+						value.put(m, sit);
+					}
+				}
+				// add entry to Catalog
+				myCatalog.getMyMap().put(key, value);
+			}
+			br.close();
+			br2.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return myCatalog;
+	}
+	
+	public void setupCatalog(String pathToServer) {
+		for(Clasa c : Centralizator.getInstance().getClase()) {
+	    	c.setCatalog(setupCatalogForClasa(c.getID(), pathToServer));
+		}
+	}
 	
 	public TreeMap<Materie, TreeMap<Clasa, Profesor>> setupRepartizareProf() {
 		TreeMap<Materie, TreeMap<Clasa, Profesor>> myMap = new TreeMap<>();
@@ -80,7 +232,7 @@ public class ServerParser {
 				}
 		    	clase.add(c);
 		    }
-		    
+		    br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			e.printStackTrace();
@@ -132,7 +284,7 @@ public class ServerParser {
 				}
 		    	c.adaugaElev(e);
 		    }
-		    
+		    br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			e.printStackTrace();
@@ -178,7 +330,7 @@ public class ServerParser {
 				profesori.put(tokens[1], p);
 		    	
 		    }
-		    
+		    br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			e.printStackTrace();
@@ -215,7 +367,7 @@ public class ServerParser {
 				secretari.put(tokens[1], s);
 		    	
 		    }
-		    
+		    br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			e.printStackTrace();
@@ -252,7 +404,7 @@ public class ServerParser {
 				administratori.put(tokens[1], a);
 		    	
 		    }
-		    
+		    br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			e.printStackTrace();

@@ -38,18 +38,18 @@ public class Materie implements Comparable<Materie> {
 		this.nrOrePeSapt = nrOrePeSapt;
 	}
 	
-	public boolean isTeza() {
+	public boolean getTeza() {
 		return teza;
 	}
 	
 	public void setTeza(boolean teza) {
 		this.teza = teza;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Materie [nume=" + nume + ", nrOrePeSapt=" + nrOrePeSapt
-				+ ", teza=" + teza + "]\n";
+		return "\nMaterie [nume=" + nume + ", nrOrePeSapt=" + nrOrePeSapt
+				+ ", teza=" + teza + "]";
 	}
 
 	@Override

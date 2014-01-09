@@ -1,5 +1,7 @@
 package liceu;
 
+import java.util.LinkedList;
+
 import liceu.SituatieMaterieBaza.Semestru;
 import liceu.utils.Nota;
 
@@ -78,6 +80,16 @@ public class SituatieMaterieCuTeza extends SituatieMaterieBaza {
 			super.setMedieSem2(new Nota(medieNote * 0.75 + tezaSem2.getNota() * 0.25));
 			break;
 		}
+	}
+	
+	public void setNoteSem1(LinkedList<Nota> noteSem1) {
+		super.setNoteSem1(noteSem1);
+		computeAverage(Semestru.SEMESTRUL_1);
+	}
+	
+	public void setNoteSem2(LinkedList<Nota> noteSem2) {
+		super.setNoteSem2(noteSem2);
+		computeAverage(Semestru.SEMESTRUL_2);
 	}
 	
 	/**

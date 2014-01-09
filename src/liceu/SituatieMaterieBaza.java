@@ -1,6 +1,10 @@
 package liceu;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 import liceu.SituatieMaterieBaza.Absenta.Status;
@@ -31,8 +35,13 @@ public class SituatieMaterieBaza {
 		public enum Status {
 			MOTIVATA, NEMOTIVATA, NEDETERMINAT
 		}
-		private Calendar data;
+		private Calendar date;
 		private Status status;
+
+		public Absenta() {
+			status = Status.NEDETERMINAT;
+			date = new GregorianCalendar();
+		}
 		
 		/**
 		 * @return Status - The current status of the object.
@@ -52,27 +61,29 @@ public class SituatieMaterieBaza {
 		/**
 		 * @return Calendar - Date of the absence.
 		 */
-		public Calendar getData() {
-			return data;
+		public Calendar getDate() {
+			return date;
 		}
 		
 		/**
 		 * The method sets the date of the object.
 		 * @param data - of type Calendar
 		 */
-		public void setData(Calendar data) {
-			this.data = data;
+		public void setDate(Calendar data) {
+			this.date = data;
 		}
 
 		@Override
 		public String toString() {
-			return "Absenta [data=" + data + ", status=" + status + "]\n";
+			DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+			Date d = date.getTime();
+			return "Absenta [data=" + df.format(d) + ", status=" + status + "]";
 		}
 		
 		@Override
 		public boolean equals(Object obj) {
 			Absenta a = (Absenta) obj;
-			return getData().equals(a.getData());
+			return getDate().equals(a.getDate());
 		}
 		
 	}
@@ -144,7 +155,7 @@ public class SituatieMaterieBaza {
 	 */
 	public void addAbsenta(Calendar date, Absenta.Status s) {
 		Absenta a = new Absenta();
-		a.setData(date);
+		a.setDate(date);
 		a.setStatus(s);
 		absente.add(a);
 	}
@@ -211,12 +222,12 @@ public class SituatieMaterieBaza {
 	public void setMedieSem2(Nota medieSem2) {
 		this.medieSem2 = medieSem2;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "SituatieMaterieBaza [m=" + m + "\n, medieSem1=" + medieSem1
 				+ "\n, medieSem2=" + medieSem2 + "\n, noteSem1=" + noteSem1
-				+ "\n, noteSem2=" + noteSem2 + "\n, absente=" + absente + "]\n";
+				+ "\n, noteSem2=" + noteSem2 + "\n, absente=" + absente + "]";
 	}
 
 	

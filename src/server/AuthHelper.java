@@ -28,6 +28,7 @@ public class AuthHelper {
 		myParser = new ServerParser();
 		myCentralizator.setClase(myParser.setupClase(pathToServer + "/CLASE"));
 		myCentralizator.setElevi(myParser.setupElevi(pathToServer + "/ELEVI/LISTA_ELEVI"));
+		myParser.setupCatalog(pathToServer + "/CLASE");
 		myCentralizator.setProfesori(myParser.setupProfesori(pathToServer + "/PERSONAL/LISTA_PROFESORI"));
 		myCentralizator.setRepartizareProf(myParser.setupRepartizareProf());
 		myCentralizator.setSecretari(myParser.setupSecretari(pathToServer + "/PERSONAL/LISTA_SECRETARI"));

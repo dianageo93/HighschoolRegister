@@ -7,12 +7,13 @@ public class Clasa implements Comparable<Clasa> {
 	private String ID;
 	private TreeSet<Elev> elevi;
 	private TreeSet<Materie> materii;
-	// TODO : de adaugat Catalog
+	private Catalog catalog;
 	
 	public Clasa(String ID) {
 		this.ID = ID;
 		elevi = new TreeSet<>();
 		materii = new TreeSet<>();
+		catalog = new Catalog();
 	}
 	
 	public void setID(String iD) {
@@ -76,11 +77,19 @@ public class Clasa implements Comparable<Clasa> {
 		materii.remove(m);
 		return true;
 	}
+	
+	public Catalog getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(Catalog catalog) {
+		this.catalog = catalog;
+	}
 
 	@Override
 	public String toString() {
-		return "Clasa [ID=" + ID + ", elevi=" + elevi + ", materii=" + materii
-				+ "]\n";
+		return "\nClasa [ID=" + ID + ", elevi=" + elevi + ", materii=" + materii
+				+ ", catalog=" + catalog + "]";
 	}
 
 	@Override
