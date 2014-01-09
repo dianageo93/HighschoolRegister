@@ -1,5 +1,7 @@
 package server;
 
+import server.ServerBuilder.BackupOptions;
+
 
 public class LogoutHelper {
 
@@ -38,6 +40,10 @@ public class LogoutHelper {
 	
 	public void backupAllDataOnServer() {
 		myBuilder.backupAllData(pathToServer);
+	}
+	
+	public void customBackupdDataOnServer(BackupOptions option) {
+		myBuilder.customBackup(pathToServer, option);
 	}
 
 	/**

@@ -30,6 +30,10 @@ import liceu.utils.Nota;
 
 public class ServerBuilder {
 	
+	public enum BackupOptions {
+		ELEVI, MATERII, CLASE, PERSONAL
+	}
+	
 	public void buildFileCLASE(String pathToServer) {
 		for(Clasa i : Centralizator.getInstance().getClase()) {
 			String pathname = pathToServer +  "/" + i.getID();
@@ -300,6 +304,23 @@ public class ServerBuilder {
 		backupFolder(pathToServer + "/CLASE/MATERII");
 		backupFolder(pathToServer + "/ELEVI");
 		backupFolder(pathToServer + "/PERSONAL");
+	}
+	
+	public void customBackup(String pathToServer, BackupOptions option) {
+		switch(option) {
+		case CLASE:
+			backupFolder(pathToServer + "/CLASE");
+			break;
+		case MATERII:
+			backupFolder(pathToServer + "/CLASE/MATERII");
+			break;
+		case ELEVI:
+			backupFolder(pathToServer + "/ELEVI");
+			break;
+		case PERSONAL:
+			backupFolder(pathToServer + "/PERSONAL");
+			break;
+		}
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import server.AuthHelper;
 import server.LogoutHelper;
+import server.ServerBuilder.BackupOptions;
 
 public class fakeMain {
 
@@ -26,7 +27,7 @@ public class fakeMain {
 //		myLogoutHelper.updateCatalog();
 //		myLogoutHelper.updateListaProfesori();
 //		myLogoutHelper.updateListaMaterii();
-		myLogoutHelper.backupAllDataOnServer();
+		myLogoutHelper.customBackupdDataOnServer(BackupOptions.ELEVI);
 		System.out.println("gata");
 		
 		
