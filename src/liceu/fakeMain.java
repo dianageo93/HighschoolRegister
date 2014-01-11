@@ -1,7 +1,12 @@
 package liceu;
 
 import java.io.IOException;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
+import liceu.IProfesor.OrderOptions;
+import liceu.SituatieMaterieBaza.Semestru;
+import liceu.utils.Nota;
 import server.AuthHelper;
 import server.LogoutHelper;
 import server.ServerBuilder.BackupOptions;
@@ -15,20 +20,32 @@ public class fakeMain {
 	public static void main(String[] args) throws IOException {
 		
 		AuthHelper helper = new AuthHelper();
-//		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
-//		Clasa c = clase.last();
-//		Catalog cat = c.getCatalog();
-//		Elev e = new Elev();
-//		e.setLoginID("voichita.ghenghea22");
+		
+		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+		Clasa c = clase.first();
+		Catalog cat = c.getCatalog();
+		
+		TreeMap<String, Elev> elevi = Centralizator.getInstance().getElevi();
+		Elev e = elevi.get("andreea_mariana.chivu");
+		System.out.println(e);
+		
+		TreeMap<String, Profesor> profesori = Centralizator.getInstance().getProfesori();
+		Profesor p = profesori.get("adrian.surpateanu");
+		LogoutHelper.getInstance().customBackupDataOnServer(BackupOptions.CLASE);
+		
+		LogoutHelper.getInstance().updateCatalog();
+		
+		
+		
 //		TreeMap<Materie, SituatieMaterieBaza> elevEntry = cat.getMyMap().get(e);
 //		System.out.println(elevEntry);
 		
-		LogoutHelper myLogoutHelper = new LogoutHelper();
+//		LogoutHelper myLogoutHelper = new LogoutHelper();
 //		myLogoutHelper.updateCatalog();
 //		myLogoutHelper.updateListaProfesori();
 //		myLogoutHelper.updateListaMaterii();
-		myLogoutHelper.customBackupdDataOnServer(BackupOptions.ELEVI);
-		System.out.println("gata");
+//		myLogoutHelper.customBackupdDataOnServer(BackupOptions.ELEVI);
+//		System.out.println("gata");
 		
 		
 		

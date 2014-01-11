@@ -17,20 +17,23 @@ public class BasicLabel extends JLabel {
 	private boolean MOUSEOVER = false;
 	
 	public BasicLabel(String content) {
-			
 			super(content);
 			setFont(new Font(FACE, STYLE, SIZE));
 			setForeground(FOREGROUND);
-			
 	}
 	
-
-	public BasicLabel(String content, int constraints) {
+	public BasicLabel() {
 		
+	}
+	
+	public BasicLabel(String content, int constraints) {
 		super(content, constraints);
 		setFont(new Font(FACE, STYLE, SIZE));
 		setForeground(FOREGROUND);
-		
+	}
+	
+	public Font getFont() {
+		return new Font(FACE, STYLE, SIZE);
 	}
 	
 	public boolean isClicked() {

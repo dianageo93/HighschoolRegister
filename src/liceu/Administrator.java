@@ -1,6 +1,13 @@
 package liceu;
 
-public class Administrator extends Utilizator implements IProfesor, ISecretar {
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import liceu.SituatieMaterieBaza.Semestru;
+import liceu.utils.Nota;
+
+public class Administrator extends Utilizator implements IAdministrator {
 
 	public Administrator() {
 		super(TipUtilizator.ADMINISTRATOR);
@@ -8,15 +15,15 @@ public class Administrator extends Utilizator implements IProfesor, ISecretar {
 	}
 
 	@Override
-	public void listareEleviClasa(Clasa c) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean ordonareClasa(Clasa c) {
-		// TODO Auto-generated method stub
-		return false;
+	public TreeSet<Elev> listEleviFromClasa(String c) {
+		TreeSet<Elev> listOfElevi = new TreeSet<>();
+		TreeMap<String, Elev> elevi = Centralizator.getInstance().getElevi();
+		for(Map.Entry<String, Elev> entry : elevi.entrySet()) {
+			if(entry.getValue().getClasa().equals(c)) {
+				listOfElevi.add(entry.getValue());
+			}
+		}
+		return listOfElevi;
 	}
 
 	@Override
@@ -25,6 +32,44 @@ public class Administrator extends Utilizator implements IProfesor, ISecretar {
 				+ ", getUUID()=" + getUUID() + ", getNumeUtilizator()="
 				+ getNumeUtilizator() + ", getLoginID()=" + getLoginID() + "]\n";
 	}
+
+	@Override
+	public TreeSet<Elev> ordonareClasa(String c, OrderOptions criteriu) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean adaugaUtilizator(Utilizator u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Utilizator stergeUtilizator(Utilizator u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void listareUtilizatori() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TreeSet<Elev> ordonareClasa(String c, OrderOptions criteriu,
+			Semestru s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addNota(String c, Semestru s, Elev e, Nota n) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 
 }

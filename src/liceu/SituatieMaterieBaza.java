@@ -22,6 +22,7 @@ public class SituatieMaterieBaza {
 	private LinkedList<Nota> noteSem1;
 	private LinkedList<Nota> noteSem2;
 	private LinkedList<Absenta> absente;
+	private boolean medieIncheiata = false;
 	
 	/**
 	 * An istance of this class represents an absence. Such an object would retain the date and status of
@@ -221,6 +222,22 @@ public class SituatieMaterieBaza {
 
 	public void setMedieSem2(Nota medieSem2) {
 		this.medieSem2 = medieSem2;
+	}
+	
+	public double getMedieGenerala() {
+		return medieSem1.getNota() / 2 + medieSem2.getNota() / 2;
+	}
+	
+	public int getNrAbsente() {
+		return absente.size();
+	}
+	
+	public boolean isMedieIncheiata() {
+		return medieIncheiata;
+	}
+	
+	public void setMedieIncheiata(boolean medieIncheiata) {
+		this.medieIncheiata = medieIncheiata;
 	}
 	
 	@Override

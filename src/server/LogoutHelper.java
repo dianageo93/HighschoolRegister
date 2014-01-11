@@ -42,7 +42,7 @@ public class LogoutHelper {
 		myBuilder.backupAllData(pathToServer);
 	}
 	
-	public void customBackupdDataOnServer(BackupOptions option) {
+	public void customBackupDataOnServer(BackupOptions option) {
 		myBuilder.customBackup(pathToServer, option);
 	}
 

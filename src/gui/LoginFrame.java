@@ -174,6 +174,7 @@ public class LoginFrame extends Frame {
 						ElevFrame myElevFrame = new ElevFrame();
 						myElevFrame.setUsername(getUsername());
 						myElevFrame.setUsernameLabel();
+						myElevFrame.setupHomePanel();
 						dispose();
 					}
 					else {

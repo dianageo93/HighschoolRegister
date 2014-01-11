@@ -53,5 +53,11 @@ public class Elev extends Utilizator implements IElev, Comparable<Elev> {
 		}
 		return false;
 	}
+	
+	public String getClasa() {
+		String clasa = null;
+		clasa = getUUID().substring(14);
+		return clasa;
+	}
 
 }

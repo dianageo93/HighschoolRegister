@@ -1,13 +1,6 @@
 package gui;
 
-import gui.utils.UserFrame;
-import gui.utils.UserFrameEquiped;
-
-import java.awt.Color;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.DefaultMetalTheme;
@@ -73,6 +66,7 @@ public class Run {
 	
 //	private UserFrame elevWindow = new ElevFrame();
 	private LoginFrame myLoginFrame = new LoginFrame();
+//	private ElevFrame myFrame = new ElevFrame();
 	
 //	private Thread timerThread = new Thread(new Runnable() {
 //		

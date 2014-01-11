@@ -1,6 +1,6 @@
 package liceu;
 
-public interface IAdministrator {
+public interface IAdministrator extends IProfesor, ISecretar {
 
 	public boolean adaugaUtilizator(Utilizator u);
 	

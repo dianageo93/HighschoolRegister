@@ -12,8 +12,14 @@ public class Centralizator {
 	private TreeSet<Clasa> clase;
 	private TreeMap<Materie, TreeMap<Clasa, Profesor>> repartizareProf;
 	
-	// TODO : toString
-	
+	@Override
+	public String toString() {
+		return "Centralizator [elevi=" + elevi + ", profesori=" + profesori
+				+ ", secretari=" + secretari + ", administratori="
+				+ administratori + ", clase=" + clase + ", repartizareProf="
+				+ repartizareProf + "]";
+	}
+
 	public Centralizator() {
 		
 	}

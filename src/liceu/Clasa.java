@@ -16,6 +16,10 @@ public class Clasa implements Comparable<Clasa> {
 		catalog = new Catalog();
 	}
 	
+	public Clasa() {
+		ID = "null";
+	}
+
 	public void setID(String iD) {
 		ID = iD;
 	}
