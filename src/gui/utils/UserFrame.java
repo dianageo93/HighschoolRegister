@@ -210,7 +210,7 @@ public class UserFrame extends Frame {
 	}
 
 	public String getWhatUser() {
-		return "Elev";
+		return this.whatUser;
 	}
 	
 	public void setWhatUser(String whatUser) {

@@ -19,6 +19,7 @@ public class AuthHelper {
 	private String pathToServer = "/home/user/workspace/TemaPOO/server";
 	private Centralizator myCentralizator = Centralizator.getInstance();
 	private ServerParser myParser = null;
+	private TipUtilizator tip = TipUtilizator.ELEV;
 	
 	/**
 	 * The constructor that sets all the fields of the Centralizator instance.
@@ -47,21 +48,33 @@ public class AuthHelper {
 	public boolean loginAccepted(String username, String passwd) {
 		Elev e = myCentralizator.getElevi().get(username);
 		if(e != null && e.getParolaUtilizator().equals(passwd)) {
+			setTip(TipUtilizator.ELEV);
 			return true;
 		}
 		Profesor p = myCentralizator.getProfesori().get(username);
 		if(p!= null && p.getParolaUtilizator().equals(passwd)) {
+			setTip(TipUtilizator.PROFESOR);
 			return true;
 		}
 		Secretar s = myCentralizator.getSecretari().get(username);
 		if(s != null && s.getParolaUtilizator().equals(passwd)) {
+			setTip(TipUtilizator.SECRETAR);
 			return true;
 		}
 		Administrator a = myCentralizator.getAdministratori().get(username);
 		if(a != null && a.getParolaUtilizator().equals(passwd)) {
+			setTip(TipUtilizator.ADMINISTRATOR);
 			return true;
 		}
 		return false;
+	}
+	
+	public TipUtilizator getTip() {
+		return tip;
+	}
+	
+	public void setTip(TipUtilizator tip) {
+		this.tip = tip;
 	}
 	
 	/**

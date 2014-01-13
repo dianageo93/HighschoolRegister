@@ -1,10 +1,11 @@
 package liceu;
 
+import java.util.TreeSet;
+
 public class Secretar extends Utilizator implements ISecretar {
 
 	public Secretar() {
 		super(TipUtilizator.SECRETAR);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -12,6 +13,14 @@ public class Secretar extends Utilizator implements ISecretar {
 		return "Secretar [getTipUtilizator()=" + getTipUtilizator()
 				+ ", getUUID()=" + getUUID() + ", getNumeUtilizator()="
 				+ getNumeUtilizator() + ", getLoginID()=" + getLoginID() + "]\n";
+	}
+	
+	@Override
+	public void addClasa(String c) {
+		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+		Clasa newClasa = new Clasa(c);
+		
+		
 	}
 	
 }

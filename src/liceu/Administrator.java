@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import liceu.SituatieMaterieBaza.Absenta;
+import liceu.SituatieMaterieBaza.Absenta.Status;
 import liceu.SituatieMaterieBaza.Semestru;
 import liceu.utils.Nota;
 
@@ -40,6 +42,19 @@ public class Administrator extends Utilizator implements IAdministrator {
 	}
 
 	@Override
+	public TreeSet<Elev> ordonareClasa(String c, OrderOptions criteriu,
+			Semestru s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addNota(Semestru s, Elev e, Nota n) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean adaugaUtilizator(Utilizator u) {
 		// TODO Auto-generated method stub
 		return false;
@@ -58,18 +73,22 @@ public class Administrator extends Utilizator implements IAdministrator {
 	}
 
 	@Override
-	public TreeSet<Elev> ordonareClasa(String c, OrderOptions criteriu,
-			Semestru s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean addNota(String c, Semestru s, Elev e, Nota n) {
+	public boolean addTeza(Semestru s, Elev e, Nota n) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	
+	@Override
+	public boolean addAbsenta(Status s, Elev e, Absenta a) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modifyAbsenta(Status s, Elev e, Absenta a) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

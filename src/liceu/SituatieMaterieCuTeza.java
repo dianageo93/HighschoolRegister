@@ -110,5 +110,14 @@ public class SituatieMaterieCuTeza extends SituatieMaterieBaza {
 		}
 	}
 
+
+	public void addNotaTeza(Nota n, Semestru s) {
+		if(s == Semestru.SEMESTRUL_1) {
+			setTezaSem1(n);
+		}
+		else {
+			setTezaSem2(n);
+		}
+	}
 	
 }

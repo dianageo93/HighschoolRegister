@@ -181,7 +181,7 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
 		return centerPanel;
 	}
 	
-	public void setupColegiPanel() {
+	private void setupColegiPanel() {
 		JPanel centerPanel = clearCenterPanel();
 		JTable table = new JTable(new ColegiTableModel());
         table.setPreferredScrollableViewportSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() - 10));
@@ -195,20 +195,20 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
         	table.setRowHeight(row, 35);
         }
         
-        if(scrollPane != null) {
-        	centerPanel.remove(scrollPane);
+        if(scrollPanel != null) {
+        	centerPanel.remove(scrollPanel);
         }
-        scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() - 10));
-        scrollPane.getViewport().setBackground(Color.DARK_GRAY);
-        setScrollPane(scrollPane);
-        centerPanel.add(scrollPane);
+        scrollPanel = new JScrollPane(table);
+        scrollPanel.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() - 10));
+        scrollPanel.getViewport().setBackground(Color.DARK_GRAY);
+        setScrollPane(scrollPanel);
+        centerPanel.add(scrollPanel);
         
         centerPanel.revalidate();
         centerPanel.repaint();
 	}
 	
-	public void setupCatalogPanel() {
+	private void setupCatalogPanel() {
 		JPanel centerPanel = clearCenterPanel();
 		
 		JMenuBar menuBar;
@@ -272,14 +272,14 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
 
 	}
 	
-	private JScrollPane scrollPane = null;
+	private JScrollPane scrollPanel = null;
 	
 	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
+		this.scrollPanel = scrollPane;
 	}
 	
 	public JScrollPane getScrollPane() {
-		return scrollPane;
+		return scrollPanel;
 	}
 	
 	private JButton medieSemBttn = null;
@@ -289,7 +289,7 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
 	private double medieSem = 0.0;
 	private double medieGen = 0.0;
 	
-	public void setupCatalogPanel(Semestru sem) {
+	private void setupCatalogPanel(Semestru sem) {
 		JPanel centerPanel = super.getCenterPanel();
 		String[] columnNames = { "Semestru", 
 								 "Materie", 
@@ -367,14 +367,14 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
         for(int row = 0; row < table.getRowCount(); row++) {
         	table.setRowHeight(row, 35);
         }
-        if(scrollPane != null) {
-        	centerPanel.remove(scrollPane);
+        if(scrollPanel != null) {
+        	centerPanel.remove(scrollPanel);
         }
-        scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() * 6 / 7));
-        scrollPane.getViewport().setBackground(Color.DARK_GRAY);
-        setScrollPane(scrollPane);
-        centerPanel.add(scrollPane);
+        scrollPanel = new JScrollPane(table);
+        scrollPanel.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() * 6 / 7));
+        scrollPanel.getViewport().setBackground(Color.DARK_GRAY);
+        setScrollPane(scrollPanel);
+        centerPanel.add(scrollPanel);
         
         if(medieSemBttn != null) {
         	centerPanel.remove(medieSemBttn);
@@ -424,7 +424,7 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
 	private BasicLabel nrAbsLbl = null;
 	private int nrAbs = 0;
 	
-	public void setupAbsentePanel() {
+	private void setupAbsentePanel() {
 		JPanel centerPanel = super.getCenterPanel();
 		String[] columnNames = { "Materie", 
 								 "Absente", 
@@ -478,14 +478,14 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
         for(int row = 0; row < table.getRowCount(); row++) {
         	table.setRowHeight(row, 45);
         }
-        if(scrollPane != null) {
-        	centerPanel.remove(scrollPane);
+        if(scrollPanel != null) {
+        	centerPanel.remove(scrollPanel);
         }
-        scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() * 6 / 7));
-        scrollPane.getViewport().setBackground(Color.DARK_GRAY);
-        setScrollPane(scrollPane);
-        centerPanel.add(scrollPane);
+        scrollPanel = new JScrollPane(table);
+        scrollPanel.setPreferredSize(new Dimension(centerPanel.getWidth() - 10, centerPanel.getHeight() * 6 / 7));
+        scrollPanel.getViewport().setBackground(Color.DARK_GRAY);
+        setScrollPane(scrollPanel);
+        centerPanel.add(scrollPanel);
         
         if(medieSemBttn != null) {
         	centerPanel.remove(medieSemBttn);
@@ -520,7 +520,7 @@ public class ElevFrame extends UserFrameEquiped implements IUserFrameActions {
 		centerPanel.repaint();
 	}
 	
-	public void setupMateriiPanel() {
+	private void setupMateriiPanel() {
 		final JPanel centerPanel = super.getCenterPanel();
 		String clasa = Centralizator.getInstance().getElevi().get(super.getUsername()).getClasa();
 		final TreeMap<Materie, Profesor> myTreeMap = new TreeMap<>();

@@ -1,10 +1,13 @@
 package liceu;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import liceu.SituatieMaterieBaza.Absenta;
+import liceu.SituatieMaterieBaza.Absenta.Status;
 import liceu.SituatieMaterieBaza.Semestru;
 import liceu.utils.Nota;
 
@@ -12,9 +15,6 @@ public class Profesor extends Utilizator implements IProfesor {
 	
 	public Profesor() {
 		super(TipUtilizator.PROFESOR);
-		
-		// TODO : CONSTRUCTOR
-		// TODO Auto-generated constructor stub
 	}
 
 	private String materie;
@@ -60,7 +60,7 @@ public class Profesor extends Utilizator implements IProfesor {
 	}
 
 	@Override
-	public boolean addNota(String c, Semestru s, Elev e, Nota n) {
+	public boolean addNota(Semestru s, Elev e, Nota n) {
 		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
 		String clasa = e.getClasa();
 		Clasa found = new Clasa();
@@ -73,6 +73,66 @@ public class Profesor extends Utilizator implements IProfesor {
 		Catalog ctg = found.getCatalog();
 		ctg.getMyMap().get(e).get(new Materie(materie)).addNota(n, s);
 		return true;
+	}
+	
+	@Override
+	public boolean addTeza(Semestru s, Elev e, Nota n) {
+		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+		String clasa = e.getClasa();
+		Clasa found = new Clasa();
+		for(Clasa k : clase) {
+			if(k.getID().equals(clasa)) {
+				found = k;
+				break;
+			}
+		}
+		Catalog ctg = found.getCatalog();
+		if(ctg.getMyMap().get(e).get(new Materie(materie)).getClass() != SituatieMaterieCuTeza.class) {
+			return false;
+		}
+		SituatieMaterieCuTeza sit = (SituatieMaterieCuTeza) ctg.getMyMap().get(e).get(new Materie(materie));
+		sit.addNotaTeza(n, s);
+		return true;
+	}
+	
+	@Override
+	public boolean addAbsenta(Status s, Elev e, Absenta a) {
+		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+		String clasa = e.getClasa();
+		Clasa found = new Clasa();
+		for(Clasa k : clase) {
+			if(k.getID().equals(clasa)) {
+				found = k;
+				break;
+			}
+		}
+		Catalog ctg = found.getCatalog();
+		ctg.getMyMap().get(e).get(new Materie(materie)).addAbsenta(a.getDate(), s);
+		return true;
+	}
+	
+	@Override
+	public boolean modifyAbsenta(Status s, Elev e, Absenta a) {
+		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+		String clasa = e.getClasa();
+		Clasa found = new Clasa();
+		for(Clasa k : clase) {
+			if(k.getID().equals(clasa)) {
+				found = k;
+				break;
+			}
+		}
+		Catalog ctg = found.getCatalog();
+		LinkedList<Absenta> abs = ctg.getMyMap().get(e).get(new Materie(materie)).getAbsente();
+		for(Absenta i : abs) {
+			if(i.getDate().equals(a.getDate())) {
+				if(i.getStatus() == Status.NEMOTIVATA) {
+					i.setStatus(s);
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override

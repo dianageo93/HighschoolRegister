@@ -161,6 +161,7 @@ public class SituatieMaterieBaza {
 		absente.add(a);
 	}
 	
+	
 	/**
 	 * A method for modifying the status of an absence. One can modify the status of an absence only when 
 	 * the previous status is NEDETERMINAT.

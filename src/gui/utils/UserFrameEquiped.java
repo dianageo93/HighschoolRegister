@@ -68,5 +68,6 @@ public class UserFrameEquiped extends UserFrame {
 		logoutPanel.add(logoutLabel);
 		
 	}
+	
 
 }

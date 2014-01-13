@@ -27,6 +27,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import liceu.TipUtilizator;
+
 import server.AuthHelper;
 
 /**
@@ -171,10 +173,20 @@ public class LoginFrame extends Frame {
 				}
 				else {
 					if(myAuthHelper.loginAccepted(getUsername(), getPassword())) {
-						ElevFrame myElevFrame = new ElevFrame();
-						myElevFrame.setUsername(getUsername());
-						myElevFrame.setUsernameLabel();
-						myElevFrame.setupHomePanel();
+						if(myAuthHelper.getTip() == TipUtilizator.ELEV) {
+							ElevFrame myElevFrame = new ElevFrame();
+							myElevFrame.setUsername(getUsername());
+							myElevFrame.setWhatUser("Elev");
+							myElevFrame.setUsernameLabel();
+							myElevFrame.setupHomePanel();
+						}
+						else if(myAuthHelper.getTip() == TipUtilizator.PROFESOR) {
+							ProfesorFrame myProfesorFrame = new ProfesorFrame();
+							myProfesorFrame.setUsername(getUsername());
+							myProfesorFrame.setWhatUser("Profesor");
+							myProfesorFrame.setUsernameLabel();
+							myProfesorFrame.setupHomePanel();
+						}
 						dispose();
 					}
 					else {
