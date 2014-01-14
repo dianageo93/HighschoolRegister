@@ -19,23 +19,32 @@ public class fakeMain {
 	 */
 	public static void main(String[] args) throws IOException {
 		
+		// termina cu administratorul
+		// fa paginile de pt administrator si secretar
+		
+		
+		
+		
 		AuthHelper helper = new AuthHelper();
-		
-		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
-		Clasa c = clase.first();
-		Catalog cat = c.getCatalog();
-		
-		TreeMap<String, Elev> elevi = Centralizator.getInstance().getElevi();
-		Elev e = elevi.get("andreea_mariana.chivu");
-		System.out.println(e);
-		
-		TreeMap<String, Profesor> profesori = Centralizator.getInstance().getProfesori();
-		Profesor p = profesori.get("adrian.surpateanu");
-		LogoutHelper.getInstance().customBackupDataOnServer(BackupOptions.CLASE);
-		
-		LogoutHelper.getInstance().updateCatalog();
+		Secretar scr = new Secretar();
+//		scr.addClasa("08D");
+		System.out.println("gata");
+//		LogoutHelper.getInstance().updateAllDataOnServer();
 		
 		
+//		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
+//		Clasa c = clase.first();
+//		Catalog cat = c.getCatalog();
+//		
+//		TreeMap<String, Elev> elevi = Centralizator.getInstance().getElevi();
+//		Elev e = elevi.get("andreea_mariana.chivu");
+//		System.out.println(e);
+//		
+//		TreeMap<String, Profesor> profesori = Centralizator.getInstance().getProfesori();
+//		Profesor p = profesori.get("adrian.surpateanu");
+//		LogoutHelper.getInstance().customBackupDataOnServer(BackupOptions.CLASE);
+//		
+//		LogoutHelper.getInstance().updateCatalog();
 		
 //		TreeMap<Materie, SituatieMaterieBaza> elevEntry = cat.getMyMap().get(e);
 //		System.out.println(elevEntry);

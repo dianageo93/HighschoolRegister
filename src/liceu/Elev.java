@@ -59,5 +59,10 @@ public class Elev extends Utilizator implements IElev, Comparable<Elev> {
 		clasa = getUUID().substring(14);
 		return clasa;
 	}
+	
+	public void setClasa(String newClasa) {
+		String oldClasa = super.getUUID().substring(14);
+		super.getUUID().replace(oldClasa, newClasa);
+	}
 
 }

@@ -31,6 +31,10 @@ public class Profesor extends Utilizator implements IProfesor {
 	public void adaugaClasa(String c) {
 		clase.add(c);
 	}
+	
+	public void removeClasa(String c) {
+		clase.remove(c);
+	}
 
 	@Override
 	public TreeSet<Elev> listEleviFromClasa(String c) {

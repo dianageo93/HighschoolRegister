@@ -28,13 +28,37 @@ import liceu.SituatieMaterieBaza.Absenta.Status;
 import liceu.SituatieMaterieCuTeza;
 import liceu.utils.Nota;
 
+/**
+ * This is a helping class, used for querying the server in order to obtain access and write back data.
+ * It also provides back-up solutions for the user.
+ *
+ */
 public class ServerBuilder {
 	
+	/**
+	 * This enumeration allows the user to choose how to customize the back-up.
+	 *
+	 */
 	public enum BackupOptions {
 		ELEVI, MATERII, CLASE, PERSONAL
 	}
 	
+	/**
+	 * This method writes on the server the files that contain data about classes - students, grades and
+	 * absences.
+	 * @param pathToServer
+	 */
 	public void buildFileCLASE(String pathToServer) {
+		File dir = new File(pathToServer);
+		for(File file: dir.listFiles(new FileFilter() {
+			
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.isFile();
+			}
+		})) {
+			file.delete();
+		}
 		for(Clasa i : Centralizator.getInstance().getClase()) {
 			String pathname = pathToServer +  "/" + i.getID();
 			try {
@@ -81,6 +105,10 @@ public class ServerBuilder {
 		
 	}
 	
+	/**
+	 * This method writes on the server the files that contain data about absences - dates and statuses.
+	 * @param pathToServer
+	 */
 	public void buildFileCLASE_ABSENTE(String pathToServer) {
 		for(Clasa i : Centralizator.getInstance().getClase()) {
 			String pathname = pathToServer + "/" + i.getID() + "_abs";
@@ -123,6 +151,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method writes on the server the files that contain data about classes - id.
+	 * @param pathToServer
+	 */
 	public void updateListaClase(String pathToServer) {
 		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
 		try {
@@ -140,6 +172,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method locally updates the list of students in the Centralizator instance present on runtime.
+	 * @param pathToServer
+	 */
 	public void updateListaElevi(String pathToServer) {
 		TreeMap<String, Elev> elevi = Centralizator.getInstance().getElevi();
 		try {
@@ -158,6 +194,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method locally updates the list of admins in the Centralizator instance present on runtime.
+	 * @param pathToServer
+	 */
 	public void updateListaAdmin(String pathToServer) {
 		TreeMap<String, Administrator> adm = Centralizator.getInstance().getAdministratori();
 		try {
@@ -176,6 +216,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method locally updates the list of secretaries in the Centralizator instance present on runtime.
+	 * @param pathToServer
+	 */
 	public void updateListaSecretari(String pathToServer) {
 		TreeMap<String, Secretar> scr = Centralizator.getInstance().getSecretari();
 		try {
@@ -194,6 +238,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method locally updates the list of teachers in the Centralizator instance present on runtime.
+	 * @param pathToServer
+	 */
 	public void updateListaProfesori(String pathToServer) {
 		TreeMap<String, Profesor> prf = Centralizator.getInstance().getProfesori();
 		try {
@@ -223,6 +271,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method locally updates the list of subjects in the Centralizator instance present on runtime.
+	 * @param pathToServer
+	 */
 	public void updateListaMaterii(String pathToServer) {
 		String pathname = pathToServer + "/MATERII";
 		TreeSet<Clasa> clase = Centralizator.getInstance().getClase();
@@ -267,6 +319,10 @@ public class ServerBuilder {
 		
 	}
 	
+	/**
+	 * This method customly back-ups one folder at a time.
+	 * @param pathToServer
+	 */
 	public void backupFolder(String pathToServer) {
 		try {
 			String source = pathToServer; // ..../server/ELEVI
@@ -299,6 +355,10 @@ public class ServerBuilder {
 		}
 	}
 	
+	/**
+	 * This method back-ups all data on server.
+	 * @param pathToServer
+	 */
 	public void backupAllData(String pathToServer) {
 		backupFolder(pathToServer + "/CLASE");
 		backupFolder(pathToServer + "/CLASE/MATERII");
@@ -306,6 +366,10 @@ public class ServerBuilder {
 		backupFolder(pathToServer + "/PERSONAL");
 	}
 	
+	/**
+	 * This method allows the user to do custom back-up.
+	 * @param pathToServer
+	 */
 	public void customBackup(String pathToServer, BackupOptions option) {
 		switch(option) {
 		case CLASE:

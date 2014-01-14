@@ -89,6 +89,10 @@ public class Clasa implements Comparable<Clasa> {
 	public void setCatalog(Catalog catalog) {
 		this.catalog = catalog;
 	}
+	
+	public void deleteElev(Elev e) {
+		elevi.remove(e);
+	}
 
 	@Override
 	public String toString() {

@@ -6,6 +6,7 @@ import liceu.SituatieMaterieBaza.Absenta;
 import liceu.SituatieMaterieBaza.Absenta.Status;
 import liceu.SituatieMaterieBaza.Semestru;
 import liceu.utils.Nota;
+import liceu.utils.NumePrenume;
 
 public interface IProfesor {
 	

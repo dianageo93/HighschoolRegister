@@ -1,5 +1,6 @@
 package liceu;
 
+import server.AuthHelper;
 import exceptions.UnsupportedUserTypeException;
 
 public class UtilizatorFactory {

@@ -26,12 +26,23 @@ import liceu.SituatieMaterieCuTeza;
 import liceu.utils.Nota;
 import liceu.utils.NumePrenume;
 
+/**
+ * This method is used to query the server for data. It creates a Centralizator instance that will be further used
+ * in the app.
+ *
+ */
 public class ServerParser {
 	
 	private int BEGIN_PASSWD = 8;
 	private int END_PASSWD = BEGIN_PASSWD + 6;
 	private int BEGIN_CLASA = END_PASSWD;
 	
+	/**
+	 * This method sets up the Catalog object associated to each class.
+	 * @param clasa
+	 * @param pathToServer
+	 * @return the Catalog object
+	 */
 	private Catalog setupCatalogForClasa(String clasa, String pathToServer) {
 		Catalog myCatalog = new Catalog();
 		String myPathToServer = pathToServer + "/" + clasa;
@@ -170,12 +181,23 @@ public class ServerParser {
 		return myCatalog;
 	}
 	
+	/**
+	 * This method sets up the Catalog objects for every class present in the server. It actually parses the
+	 * files on server.
+	 * @param pathToServer
+	 */
 	public void setupCatalog(String pathToServer) {
 		for(Clasa c : Centralizator.getInstance().getClase()) {
 	    	c.setCatalog(setupCatalogForClasa(c.getID(), pathToServer));
 		}
 	}
 	
+	/**
+	 * This method returns a dictionary containg a Materie key and a value formed of another dictionary, that
+	 * contains a Clasa-type object and a Profesor-type value. It actually maps each teacher on a class for
+	 * a certain subject.
+	 * @return
+	 */
 	public TreeMap<Materie, TreeMap<Clasa, Profesor>> setupRepartizareProf() {
 		TreeMap<Materie, TreeMap<Clasa, Profesor>> myMap = new TreeMap<>();
 		TreeMap<String, Profesor> profesori = Centralizator.getInstance().getProfesori();
@@ -205,6 +227,11 @@ public class ServerParser {
 		
 	}
 	
+	/**
+	 * This method will generate a TreeSet<Clasa>, that will retain the details of every class in school.
+	 * @param pathToServer
+	 * @return the TreeSet<Clasa>
+	 */
 	public TreeSet<Clasa> setupClase(String pathToServer) {
 		TreeSet<Clasa> clase = new TreeSet<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(pathToServer + "/LISTA_CLASE"))) {
@@ -243,6 +270,11 @@ public class ServerParser {
 		return clase;
 	}
 	
+	/**
+	 * This method will generate a TreeMap, that will retain the details of every student in school.
+	 * @param pathToServer
+	 * @return the TreeMap
+	 */
 	public TreeMap<String, Elev> setupElevi(String pathToServer) {
 		TreeMap<String, Elev> elevi = new TreeMap<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(pathToServer))) {
@@ -296,6 +328,11 @@ public class ServerParser {
 		return elevi;
 	}
 	
+	/**
+	 * This method will generate a TreeMap, that will retain the details of every teacher in school.
+	 * @param pathToServer
+	 * @return the TreeMap
+	 */
 	public TreeMap<String, Profesor> setupProfesori(String pathToServer) {
 		TreeMap<String, Profesor> profesori = new TreeMap<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(pathToServer))) {
@@ -342,6 +379,11 @@ public class ServerParser {
 		return profesori;
 	}
 	
+	/**
+	 * This method will generate a TreeMap, that will retain the details of every secretary in school.
+	 * @param pathToServer
+	 * @return the TreeMap
+	 */
 	public TreeMap<String, Secretar> setupSecretari(String pathToServer) {
 		TreeMap<String, Secretar> secretari = new TreeMap<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(pathToServer))) {
@@ -379,6 +421,11 @@ public class ServerParser {
 		return secretari;
 	}
 	
+	/**
+	 * This method will generate a TreeMap, that will retain the details of every admin in school.
+	 * @param pathToServer
+	 * @return the TreeMap
+	 */
 	public TreeMap<String, Administrator> setupAdministratori(String pathToServer) {
 		TreeMap<String, Administrator> administratori = new TreeMap<>();
 		try(BufferedReader br = new BufferedReader(new FileReader(pathToServer))) {
